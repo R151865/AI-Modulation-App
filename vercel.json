@@ -34,7 +34,11 @@
   ],
   "env": {
     "NODE_ENV": "production",
-    "VERCEL": "1"
+    "VERCEL": "1",
+    "OPENAI_API_KEY": "@openai-api-key",
+    "PERSPECTIVE_API_KEY": "@perspective-api-key",
+    "MONGODB_URI": "@mongodb-uri",
+    "PORT": "4000"
   },
   "functions": {
     "backend/src/index.js": {
