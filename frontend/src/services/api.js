@@ -101,7 +101,7 @@ export const checkImage = async (imageData) => {
 // Moderator panel functions
 export const getIncidents = async () => {
   try {
-    const response = await api.get('/api/alerts')
+    const response = await api.get('/api/alerts/incidents')
     return response.data
   } catch (error) {
     console.error('Error getting incidents:', error)
@@ -111,7 +111,7 @@ export const getIncidents = async () => {
 
 export const getStats = async () => {
   try {
-    const response = await api.get('/api/health')
+    const response = await api.get('/api/alerts/stats')
     return response.data
   } catch (error) {
     console.error('Error getting stats:', error)
