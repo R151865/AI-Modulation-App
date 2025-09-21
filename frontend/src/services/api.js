@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 // For Vercel deployment, API is served from the same domain
-// For local development, use localhost:3001
+// For local development, use environment variable or fallback to localhost:3001
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 
   (import.meta.env.PROD ? '' : 'http://localhost:3001')
 
