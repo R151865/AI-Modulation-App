@@ -70,26 +70,32 @@ export const moderateImageContent = async (imageBuffer) => {
 }
 
 function mockImageModeration() {
-  // Mock response for development
+  // Enhanced mock response for development - more likely to flag content for testing
+  const shouldFlag = Math.random() > 0.3 // 70% chance to flag for testing
+  const severityRand = Math.random()
+  const severity = shouldFlag ? (severityRand > 0.6 ? 'high' : severityRand > 0.3 ? 'medium' : 'low') : 'low'
+  
+  const baseScore = shouldFlag ? 0.6 : 0.1
+  
   return {
-    flagged: Math.random() > 0.7,
-    severity: Math.random() > 0.7 ? 'high' : Math.random() > 0.4 ? 'medium' : 'low',
+    flagged: shouldFlag,
+    severity: severity,
     categories: {
-      explicit_content: Math.random() * 0.3,
-      violence: Math.random() * 0.2,
-      hate_symbols: Math.random() * 0.1,
-      drugs: Math.random() * 0.4,
-      weapons: Math.random() * 0.5,
-      nudity: Math.random() * 0.6
+      explicit_content: shouldFlag ? Math.random() * 0.7 + 0.3 : Math.random() * 0.2,
+      violence: shouldFlag ? Math.random() * 0.6 + 0.2 : Math.random() * 0.1,
+      hate_symbols: shouldFlag ? Math.random() * 0.5 + 0.1 : Math.random() * 0.1,
+      drugs: shouldFlag ? Math.random() * 0.6 + 0.4 : Math.random() * 0.2,
+      weapons: shouldFlag ? Math.random() * 0.7 + 0.3 : Math.random() * 0.2,
+      nudity: shouldFlag ? Math.random() * 0.8 + 0.2 : Math.random() * 0.2
     },
     scores: {
-      explicit_content: Math.random() * 0.3,
-      violence: Math.random() * 0.2,
-      hate_symbols: Math.random() * 0.1,
-      drugs: Math.random() * 0.4,
-      weapons: Math.random() * 0.5,
-      nudity: Math.random() * 0.6
+      explicit_content: shouldFlag ? Math.random() * 0.7 + 0.3 : Math.random() * 0.2,
+      violence: shouldFlag ? Math.random() * 0.6 + 0.2 : Math.random() * 0.1,
+      hate_symbols: shouldFlag ? Math.random() * 0.5 + 0.1 : Math.random() * 0.1,
+      drugs: shouldFlag ? Math.random() * 0.6 + 0.4 : Math.random() * 0.2,
+      weapons: shouldFlag ? Math.random() * 0.7 + 0.3 : Math.random() * 0.2,
+      nudity: shouldFlag ? Math.random() * 0.8 + 0.2 : Math.random() * 0.2
     },
-    description: "A sample image description for development purposes."
+    description: shouldFlag ? "Potentially inappropriate content detected for testing purposes." : "A sample image description for development purposes."
   }
 }

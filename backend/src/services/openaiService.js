@@ -58,13 +58,15 @@ export const moderateWithOpenAI = async (text) => {
 }
 
 function mockOpenAIModeration(text) {
-  // Mock response for development
-  const hasConcerns = text.length > 50 && /bad|hate|stupid|idiot|kill|attack|sex/i.test(text)
-  const score = hasConcerns ? 0.7 : 0.1
+  // Enhanced mock response for development - more likely to flag content for testing
+  const hasBadWords = /bad|hate|stupid|idiot|kill|attack|sex|damn|hell|crap/i.test(text)
+  const hasLongText = text.length > 15
+  const hasConcerns = hasBadWords || (hasLongText && Math.random() > 0.5)
+  const score = hasConcerns ? (hasBadWords ? 0.7 : 0.5) : 0.1
 
   return {
     flagged: hasConcerns,
-    severity: hasConcerns ? 'medium' : 'low',
+    severity: hasConcerns ? (hasBadWords ? 'high' : 'medium') : 'low',
     categories: {
       toxicity: score,
       hate_speech: score * 0.6,

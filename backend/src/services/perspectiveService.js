@@ -85,13 +85,15 @@ function generateHighlights(text, attributes) {
 }
 
 function mockModeration(text) {
-  // Simple mock for development
-  const hasBadWords = /bad|hate|stupid|idiot|kill|attack|sex/i.test(text)
-  const score = hasBadWords ? 0.8 : 0.1
+  // Enhanced mock for development - more likely to flag content for testing
+  const hasBadWords = /bad|hate|stupid|idiot|kill|attack|sex|damn|hell|crap/i.test(text)
+  const hasLongText = text.length > 20
+  const shouldFlag = hasBadWords || (hasLongText && Math.random() > 0.4)
+  const score = shouldFlag ? (hasBadWords ? 0.8 : 0.6) : 0.1
   
   return {
-    flagged: hasBadWords,
-    severity: hasBadWords ? 'high' : 'low',
+    flagged: shouldFlag,
+    severity: shouldFlag ? (hasBadWords ? 'high' : 'medium') : 'low',
     categories: {
       TOXICITY: score,
       SEVERE_TOXICITY: score * 0.8,
@@ -102,6 +104,6 @@ function mockModeration(text) {
       SEVERE_TOXICITY: score * 0.8,
       IDENTITY_ATTACK: score * 0.6
     },
-    highlights: hasBadWords ? generateHighlights(text) : []
+    highlights: shouldFlag ? generateHighlights(text) : []
   }
 }

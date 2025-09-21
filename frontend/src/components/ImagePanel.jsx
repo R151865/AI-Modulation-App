@@ -25,6 +25,7 @@ const ImagePanel = () => {
       const formData = new FormData()
       formData.append('image', selectedImage)
       const result = await uploadImage(formData)
+      console.log(result, "this is tresult")
       setModerationResult(result)
     } catch (error) {
       console.error('Error uploading image:', error)
