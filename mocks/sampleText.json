@@ -1,0 +1,12 @@
+{
+  "text": "This is a sample text that might contain some bad words and hateful content that should be flagged by the moderation system.",
+  "expectedResult": {
+    "flagged": true,
+    "severity": "medium",
+    "categories": {
+      "toxicity": 0.8,
+      "hate_speech": 0.6,
+      "sexual_content": 0.1
+    }
+  }
+}

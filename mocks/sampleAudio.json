@@ -1,0 +1,6 @@
+{
+  "description": "Sample audio file metadata",
+  "duration": 30,
+  "format": "webm",
+  "transcription": "This is a sample transcription that might contain problematic content that needs moderation."
+}
