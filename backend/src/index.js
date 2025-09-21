@@ -43,6 +43,16 @@ app.use('/api/moderate/image', imageModerationRoutes)
 app.use('/api/alerts', alertsRoutes)
 app.use('/api/health', healthRoutes)
 
+// Root route for health check
+app.get('/', (req, res) => {
+  res.json({ 
+    message: 'AI Moderation API Server', 
+    status: 'running',
+    version: '1.0.0',
+    environment: process.env.NODE_ENV || 'development'
+  })
+})
+
 // Error handling
 app.use(errorHandler)
 
@@ -50,7 +60,23 @@ app.use(errorHandler)
 setupSocketHandlers(io)
 
 // Connect to database
-connectDB()
+if (process.env.VERCEL) {
+  // In Vercel, connect on each request
+  app.use(async (req, res, next) => {
+    if (mongoose.connection.readyState === 0) {
+      try {
+        await connectDB()
+      } catch (error) {
+        console.error('Database connection failed:', error)
+        return res.status(500).json({ error: 'Database connection failed' })
+      }
+    }
+    next()
+  })
+} else {
+  // In local development, connect once
+  connectDB()
+}
 
 const PORT = process.env.PORT || 3001
 
