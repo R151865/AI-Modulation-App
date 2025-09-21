@@ -43,11 +43,8 @@ export const sendMessage = async (message) => {
 }
 
 // Audio moderation
-export const uploadAudio = async (audioFile) => {
+export const uploadAudio = async (formData) => {
   try {
-    const formData = new FormData()
-    formData.append('audio', audioFile)
-    
     const response = await api.post('/api/ingest/audio', formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
@@ -71,11 +68,8 @@ export const checkAudio = async (audioData) => {
 }
 
 // Image moderation
-export const uploadImage = async (imageFile) => {
+export const uploadImage = async (formData) => {
   try {
-    const formData = new FormData()
-    formData.append('image', imageFile)
-    
     const response = await api.post('/api/ingest/image', formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
