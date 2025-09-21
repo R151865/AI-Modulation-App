@@ -30,10 +30,5 @@
   "env": {
     "NODE_ENV": "production",
     "VERCEL": "1"
-  },
-  "functions": {
-    "backend/src/index.js": {
-      "maxDuration": 30
-    }
   }
 }
